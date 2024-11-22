@@ -3,7 +3,8 @@
 
 using namespace std;
 
-template <typename T>
+/*template <typename T>
+
 void permutationSort(T arr[], int size) {
     for (int i = 0; i < size - 1; i++) {
         for (int j = i + 1; j < size; j++) {
@@ -14,7 +15,23 @@ void permutationSort(T arr[], int size) {
             }
         }
     }
-}   
+}  */ 
+
+template <typename T>
+typename std::enable_if<std::is_same<T, float>::value || std::is_same<T, double>::value, void>::type
+
+permutationSort(T arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] > arr[j]) {
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+} 
+
 
 template <typename T>
 class ArrayTransformer {
@@ -55,7 +72,7 @@ int main()
 
     cout << "Завдання 1: " << endl;
 
-    int intArr[] = { 7, 3, 9, 2, 8 };
+    float intArr[] = { 7, 3, 9, 2, 8 };
     int size = sizeof(intArr) / sizeof(intArr[0]);
 
     cout << "Масив перед сортуванням: ";
@@ -75,7 +92,7 @@ int main()
     cout << endl;
     cout << "Завдання 2: " << endl;
 
-    ArrayTransformer<int> transformer(intArr, size);
+    ArrayTransformer<float> transformer(intArr, size);
     cout << "Масив перед перетворенням: ";
     transformer.printArray();
 
